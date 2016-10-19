@@ -26,6 +26,7 @@ kids = {}
 now = strftime("%Y-%m-%d %H:%M:%S", gmtime())
 smiley = " : )"
 schifahren_emails = []
+hallo_telefonnummern = []
 
 # get website content
 #print(target)
@@ -85,22 +86,54 @@ for family in families[1:]:
 
 ###############
 
-ungueltig=0
+#ungueltig=0
 
-print("START")
+#print("START")
+#for p in people:
+ #   email=p["Email"]
+  #  email_split=email.split('@')
+   # if((email != "") and (len(email_split)>1)):
+ #       print(email)
+   # else:
+     #   print("!!!! Üngültige Email Gefunden = " + email)
+    #    ungueltig+=1
+
+#print("Total: "+str(ungueltig))
+#######################################################################################################################################################
+print("\n\n\n#schiefahren nummern\n\n\n")
+
+schifahren_kinder_liste=[]
+schifahren_eltern_tele_liste=[]
+
 for p in people:
-    email=p["Email"]
-    email_split=email.split('@')
-    if((email != "") and (len(email_split)>1)):
-        print(email)
+    if p['Geburtsdatum']!='' and p['schifahren'].lower()=='ja':
+        schifahren_kinder_liste.append(p["Name"])
     else:
-        print("!!!! Üngültige Email Gefunden = " + email)
-        ungueltig+=1
+        #print(p)
+        hallo=p["Telefon"]
+        if p['schifahren']!='' and p['schifahren'].lower()=='ja':
+            schifahren_eltern_tele_liste.append(hallo)
 
-print("Total: "+str(ungueltig))
+satz=""
 
-print("END")
+for i in range(len(schifahren_kinder_liste)):
+    satz+=schifahren_kinder_liste[i]
+    if (i==len(schifahren_kinder_liste)-1):
+        satz+=" "
+    else:
+        if(i==len(schifahren_kinder_liste)-2):
+            satz+=" und "
+        else:
+            satz+=", "
+satz+="gehen schifahren. Bitte ruf die folgende Nummern an: "
 
+for telefonummer in schifahren_eltern_tele_liste:
+    satz+=telefonummer+" "
+
+
+print(satz)
+#print (schifahren_kinder_liste)
+#print (schifahren_eltern_tele_liste)
 
 sys.exit(0)
 
