@@ -3,6 +3,8 @@ from html_table_parser import HTMLTableParser
 from time import gmtime, strftime
 from private import domain, target_file
 import sys
+from espeak import espeak
+import time
 
 # requires:
 # python3
@@ -100,6 +102,11 @@ for family in families[1:]:
 
 #print("Total: "+str(ungueltig))
 #######################################################################################################################################################
+
+espeak.set_voice('de')
+
+
+#######################################################################################################################################################
 print("\n\n\n#schiefahren nummern\n\n\n")
 
 schifahren_kinder_liste=[]
@@ -125,18 +132,26 @@ for i in range(len(schifahren_kinder_liste)):
             satz+=" und "
         else:
             satz+=", "
-satz+="gehen schifahren. Bitte ruf die folgende Nummern an: "
+if(len(schifahren_kinder_liste)== 1):
+    satz+="get "
+else:
+    satz+="gehen "
+satz+="schifahren. Bitte ruf die folgende Nummern an: "
 
 for telefonummer in schifahren_eltern_tele_liste:
     satz+=telefonummer+" "
 
-
+espeak.synth(satz)
 print(satz)
+
+print("xxxxxxxxxxxxxxxxxxxxxxxx")
+time.sleep(15)
+print("zzzzzzzzzzzzzzzzzzzzzzz")
+
 #print (schifahren_kinder_liste)
 #print (schifahren_eltern_tele_liste)
 
-sys.exit(0)
-
+#######################################################################################################################################################
 # Lehrer
 for p in people:
     if p['Funktion']!='' and p['Funktion'].lower().find('lehrer') >= 0:
